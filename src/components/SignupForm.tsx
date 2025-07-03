@@ -89,8 +89,9 @@ const SignupForm = ({ username }: { username: string }) => {
                 disabled={isPending}
                 type="submit"
                 className="absolute bottom-6 right-6 bg-[var(--yellow)] px-12 py-4"
-                text={isPending ? "Signing up" : "Sign up"}
-            />
+            >
+                {isPending ? "Signing up" : "Sign up"}
+            </Button>
         </form>
     )
 }

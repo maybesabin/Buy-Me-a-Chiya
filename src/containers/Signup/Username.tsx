@@ -105,8 +105,9 @@ const Username = () => {
             <Button
                 type="submit"
                 className="absolute bottom-6 right-6 bg-[var(--yellow)] px-12 py-4"
-                text="Sign up"
-            />
+            >
+                Sign up
+            </Button>
         </form>
     )
 }

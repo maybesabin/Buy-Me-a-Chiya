@@ -22,15 +22,17 @@ const Navbar = () => {
                 <div className="flex items-center gap-2">
                     <Link href={'/login'}>
                         <Button
-                            text="Log in"
                             className="hover:bg-gray-100"
-                        />
+                        >
+                            Log in
+                        </Button>
                     </Link>
                     <Link href={'/signup'}>
                         <Button
-                            text="Sign up"
                             className="bg-[var(--yellow)]"
-                        />
+                        >
+                            Sign up
+                        </Button>
                     </Link>
                 </div>
             </nav>

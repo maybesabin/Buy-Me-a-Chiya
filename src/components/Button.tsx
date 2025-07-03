@@ -1,24 +1,26 @@
-type ButtonProps = {
-    text: string;
-    className: string;
-    type?: "button" | "submit" | "reset";
-    disabled?: any
+import { cn } from "@/lib/utils";
+import { ButtonHTMLAttributes } from "react";
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+    className?: string;
 }
 
 const Button = ({
-    text,
     className,
-    type,
-    disabled
+    type = "button",
+    children,
+    ...props
 }: ButtonProps) => {
     return (
         <button
-            disabled={disabled}
-            type={type ? type : "button"}
-            style={{ cursor: "pointer" }}
-            className={`font-medium md:text-sm text-xs px-4 py-3 hover:scale-105 transition-all rounded-full ${className}`}
+            type={type}
+            className={cn(
+                "cursor-pointer font-medium md:text-sm text-xs px-4 py-3 hover:scale-105 transition-all rounded-full",
+                className
+            )}
+            {...props}
         >
-            {text}
+            {children}
         </button>
     )
 }

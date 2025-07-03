@@ -1,3 +1,8 @@
+export const metadata = {
+    title: "Signup | Buy Me a Chiya",
+    description: "Signup page for buy me a chiya"
+}
+
 const layout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className="flex items-start">

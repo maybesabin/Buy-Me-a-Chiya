@@ -1,4 +1,10 @@
+import LoginForm from "@/components/LoginForm"
 import Link from "next/link"
+
+export const metadata = {
+    title: "Login | Buy Me a Chiya",
+    description: "Login page for buy me a chiya"
+}
 
 const page = () => {
     return (
@@ -10,19 +16,7 @@ const page = () => {
                 </Link>
             </h4>
 
-            <div className="flex flex-col items-start gap-4">
-                <h1 className="font-medium lg:text-3xl md:text-2xl text-lg w-full text-center">
-                    Welcome back
-                </h1>
-                <input
-                    name="email"
-                    required
-                    type="email"
-                    placeholder="Email"
-                    className=
-                    "w-96 bg-neutral-100 rounded-lg px-4 py-3 border-none focus:outline-none focus:ring-2 focus:bg-white transition-all duration-300 md:text-sm text-xs"
-                />
-            </div>
+            <LoginForm />
         </div>
     )
 }
