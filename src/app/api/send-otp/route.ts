@@ -5,6 +5,7 @@ import bcrypt from "bcrypt"
 import Otp from "@/models/Otp";
 import { errorResponse, successResponse } from "@/utils/response";
 import User from "@/models/User";
+import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     try {
@@ -18,7 +19,10 @@ export async function POST(req: Request) {
 
         const user = await User.findOne({ email })
         if (!user) return errorResponse("User with this email doesn't exist")
-        if (user.verified) return successResponse("User is already verified")
+        if (user.verified) return NextResponse.json({
+            message: "User is already verified",
+            success: false
+        }, { status: 200 })
 
         const userId = user._id //extract userId
 
@@ -35,7 +39,7 @@ export async function POST(req: Request) {
             from: process.env.EMAIL_USER,
             to: email,
             subject: "Verify your email",
-            html: `<p>Enter <b>${otp}</b> in the app to verify your account 😁.</p><p>This code expires in 10 mins.</p>`
+            html: `<p>Enter <b>${otp}</b> in the app to verify your account 😁. This code expires in 10 mins.</p>`
         }
 
         const hashedOtp = await bcrypt.hash(otp, 10)
@@ -48,7 +52,11 @@ export async function POST(req: Request) {
 
         await newOtp.save()
         await transporter.sendMail(mailOptions)
-        return successResponse("OTP sent to your gmail.")
+        return NextResponse.json({
+            message: "OTP sent to your gmail",
+            success: true
+        }, { status: 200 })
+
     } catch (error) {
         return handleError(error)
     }

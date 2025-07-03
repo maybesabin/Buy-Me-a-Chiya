@@ -2,8 +2,10 @@ import Button from "./Button"
 import cup from "../../public/cup.png"
 import Image from "next/image"
 import Link from "next/link"
+import { useAuthStore } from "@/store/useAuthStore"
 
 const Navbar = () => {
+    const { logout, isAuthenticated } = useAuthStore()
     return (
         <div className="w-full flex items-center justify-center">
             <nav className="xl:w-[85rem] w-full py-4 flex items-center justify-between">
@@ -20,20 +22,31 @@ const Navbar = () => {
                     </h4>
                 </div>
                 <div className="flex items-center gap-2">
-                    <Link href={'/login'}>
+                    {isAuthenticated ?
                         <Button
-                            className="hover:bg-gray-100"
-                        >
-                            Log in
-                        </Button>
-                    </Link>
-                    <Link href={'/signup'}>
-                        <Button
+                            onClick={logout}
                             className="bg-[var(--yellow)]"
                         >
-                            Sign up
+                            Log out
                         </Button>
-                    </Link>
+                        :
+                        <>
+                            <Link href={'/login'}>
+                                <Button
+                                    className="hover:bg-gray-100"
+                                >
+                                    Log in
+                                </Button>
+                            </Link>
+                            <Link href={'/signup'}>
+                                <Button
+                                    className="bg-[var(--yellow)]"
+                                >
+                                    Sign up
+                                </Button>
+                            </Link>
+                        </>
+                    }
                 </div>
             </nav>
         </div>

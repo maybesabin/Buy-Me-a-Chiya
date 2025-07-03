@@ -17,6 +17,9 @@ export async function POST(req: Request) {
         const isMatch = await bcrypt.compare(password, user.password)
         if (!isMatch) return errorResponse("Wrong credentials")
 
+        const isVerified = user.verified;
+        if (!isVerified) return errorResponse("Your account is not verified.")
+
         const token = jwt.sign(
             { id: user._id, email: user.email },
             process.env.JWT_SECRET!,

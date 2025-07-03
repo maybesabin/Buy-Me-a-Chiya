@@ -1,19 +1,28 @@
 "use client"
 
-import { useState } from "react"
+import { FormEvent, useState } from "react"
 import Button from "./Button"
 import Input from "./Input"
 import { useEmailQuery } from "@/hooks/useEmailQuery"
 import { toast } from "sonner"
+import { useLoginQuery } from "@/hooks/useLoginQuery"
+import { useRouter } from "next/navigation"
+import { useAuthStore } from "@/store/useAuthStore"
+import { handleAxiosError } from "@/utils/axiosError"
 
 const LoginForm = () => {
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const router = useRouter()
+    const [formData, setFormData] = useState({
+        email: '',
+        password: ''
+    })
     const [isEmailValid, setIsEmailValid] = useState(false)
-    const { mutate, isPending, isSuccess } = useEmailQuery()
+    const { mutate, isPending } = useEmailQuery()
+    const { mutate: loginMutate, isPending: loginPending, isSuccess: loginSuccess } = useLoginQuery()
+    const { login } = useAuthStore()
 
     const checkEmail = () => {
-        mutate(email, {
+        mutate(formData.email, {
             onSuccess: (res) => {
                 if (res.success) {
                     setIsEmailValid(true)
@@ -25,8 +34,30 @@ const LoginForm = () => {
         })
     }
 
-    const handleLogin = () => {
-        alert("meow")
+    const handleLogin = (e: FormEvent) => {
+        e.preventDefault()
+        loginMutate(formData, {
+            onSuccess: (res) => {
+                toast.success(res.message)
+                router.push('/dashboard')
+                setFormData({
+                    email: '',
+                    password: ''
+                })
+                login(res.token)
+            },
+            onError: (err: any) => {
+                const errorMessage = err.response?.data?.message || 'Something went wrong'
+
+                // Check specific error for unverified account
+                if (errorMessage == "Your account is not verified.") {
+                    toast.error("Please verify your account first")
+                    return router.push('/verify')
+                }
+
+                handleAxiosError(err)
+            }
+        })
     }
 
     return (
@@ -35,16 +66,16 @@ const LoginForm = () => {
                 Welcome back
             </h1>
             <Input
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 name="email"
                 type="email"
                 placeholder="Email"
             />
             {isEmailValid &&
                 <Input
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                     name="password"
                     type="password"
                     placeholder="Password"
@@ -55,8 +86,11 @@ const LoginForm = () => {
                 onClick={isEmailValid ? handleLogin : checkEmail}
                 className="bg-[var(--yellow)] w-full"
             >
-                {isEmailValid ? "Login" : "Continue with email"}
+                {!isEmailValid ? (isPending ? "Checking email..." : "Continue with email") :
+                    (loginPending ? "Logging in..." : "Login")
+                }
             </Button>
+
         </div>
     )
 }
