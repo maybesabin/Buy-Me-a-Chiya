@@ -1,7 +1,11 @@
 
 const page = () => {
     return (
-        <div>page</div>
+        <div className="w-full">
+            <div className="w-full rounded-lg shadow-sm p-6">
+
+            </div>
+        </div>
     )
 }
 
