@@ -24,12 +24,16 @@ Follow these instructions to run the project locally.
 
 ```bash
 git clone https://github.com/maybesabin/Buy-Me-a-Chiya.git
-
-cd Buy-Me-a-Chiya
-
-npm install
-
 ```
+
+```bash
+cd Buy-Me-a-Chiya
+````
+
+```bash
+npm install
+```
+
 ### 2. Create a .env file similar to .env.example
 MONGO_URI =  
 JWT_SECRET =   
