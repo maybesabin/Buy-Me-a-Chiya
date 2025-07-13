@@ -1,11 +1,28 @@
 import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
+    profile: {
+        displayName: {
+            type: String,
+            required: true
+        },
+        bio: {
+            type: String,
+            required: true
+        },
+        profilePic: {
+            type: String
+        },
+        chiyaOptions: [{
+            title: { type: String, required: true },
+            price: { type: Number, required: true },
+        }]
+    },
     username: {
         type: String,
         required: true,
         minLength: [5, "Username should be between 5-30 characters"],
-        maxLength: [30, "Username should be between 4-30 characters"]
+        maxLength: [30, "Username should be between 5-30 characters"]
     },
     name: {
         type: String,

@@ -8,7 +8,7 @@ const Navbar = () => {
     const { logout, isAuthenticated } = useAuthStore()
     return (
         <div className="w-full flex items-center justify-center">
-            <nav className="xl:w-[85rem] w-full py-4 flex items-center justify-between">
+            <nav className="xl:w-[85rem] w-full 2xl:px-0 px-6 py-4 flex items-center justify-between">
                 <div className="flex items-center gap-2">
                     <Image
                         height={600}
