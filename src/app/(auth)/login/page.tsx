@@ -10,7 +10,7 @@ const page = () => {
     return (
         <div className="relative h-svh flex items-center justify-center">
             <h4 className="md:text-sm text-xs absolute top-6 right-6">
-                <span>Don't have an account?</span>&nbsp;
+                <span>Don&apos;t have an account?</span>&nbsp;
                 <Link href={'/signup'} className="underline hover:no-underline">
                     Sign up
                 </Link>

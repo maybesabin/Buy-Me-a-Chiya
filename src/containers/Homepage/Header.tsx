@@ -3,13 +3,10 @@
 import Button from "@/components/Button"
 import { Star } from "lucide-react"
 import { motion } from "framer-motion"
-import { fadeDown, fadeUp, staggerText } from "@/utils/animations"
+import { fadeDown, fadeUp } from "@/utils/animations"
 import Link from "next/link"
 
 const Header = () => {
-
-    const text = "Get support. Start your own page. Share your favorite drinks."
-    const letters = text.split("")
 
     return (
         <div className="flex flex-col items-center gap-6">
@@ -39,23 +36,20 @@ const Header = () => {
                 Share your <br /> chiya moments
             </motion.h1>
 
-            <div>
-                {letters.map((letter, idx) => (
-                    <motion.p
-                        key={idx}
-                        {...staggerText(idx)}
-                        className="text-neutral-800 md:text-lg text-sm inline-block"
-                    >
-                        {letter === " " ? "\u00A0" : letter}
-                    </motion.p>
-                ))}
+            <motion.p
+                initial={fadeDown.initial}
+                animate={fadeDown.animate}
+                transition={{ duration: 0.5, ease: "easeInOut", delay: 0.5 }}
+                className="text-neutral-800 md:text-lg text-sm inline-block"
+            >
+                Get support. Start your own page. Share your favorite drinks.
+            </motion.p>
 
-            </div>
 
             <motion.div
                 initial={fadeUp.initial}
                 animate={fadeUp.animate}
-                transition={{ duration: 0.5, ease: "easeInOut", delay: 1.5 }}
+                transition={{ duration: 0.5, ease: "easeInOut", delay: 0.75 }}
             >
                 <Link href={'/signup'}>
                     <Button className="bg-[var(--yellow)] md:text-xl text-lg font-semibold px-9 py-4">
@@ -67,7 +61,7 @@ const Header = () => {
             <motion.p
                 initial={fadeUp.initial}
                 animate={fadeUp.animate}
-                transition={{ duration: 0.5, ease: "easeInOut", delay: 1.5 }}
+                transition={{ duration: 0.5, ease: "easeInOut", delay: 0.8 }}
                 className="text-neutral-800 md:text-sm text-xs">
                 Quick, easy & free to start!
             </motion.p>

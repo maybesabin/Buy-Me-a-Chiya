@@ -9,6 +9,7 @@ import { useLoginQuery } from "@/hooks/useLoginQuery"
 import { useRouter } from "next/navigation"
 import { useAuthStore } from "@/store/useAuthStore"
 import { handleAxiosError } from "@/utils/axiosError"
+import { AxiosError } from "axios"
 
 const LoginForm = () => {
     const router = useRouter()
@@ -18,7 +19,7 @@ const LoginForm = () => {
     })
     const [isEmailValid, setIsEmailValid] = useState(false)
     const { mutate, isPending } = useEmailQuery()
-    const { mutate: loginMutate, isPending: loginPending, isSuccess: loginSuccess } = useLoginQuery()
+    const { mutate: loginMutate, isPending: loginPending } = useLoginQuery()
     const { login } = useAuthStore()
 
     const checkEmail = () => {
@@ -46,16 +47,16 @@ const LoginForm = () => {
                 })
                 login(res.token)
             },
-            onError: (err: any) => {
-                const errorMessage = err.response?.data?.message || 'Something went wrong'
+            onError: (err: unknown) => {
+                const axiosError = err as AxiosError<{ message?: string }>;
+                const errorMessage = axiosError.response?.data?.message || 'Something went wrong';
 
-                // Check specific error for unverified account
-                if (errorMessage == "Your account is not verified.") {
-                    toast.error("Please verify your account first")
-                    return router.push('/verify')
+                if (errorMessage === "Your account is not verified.") {
+                    toast.error("Please verify your account first");
+                    return router.push('/verify');
                 }
 
-                handleAxiosError(err)
+                handleAxiosError(axiosError);
             }
         })
     }

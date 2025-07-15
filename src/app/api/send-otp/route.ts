@@ -3,7 +3,7 @@ import { handleError } from "@/utils/error";
 import nodemailer from "nodemailer"
 import bcrypt from "bcrypt"
 import Otp from "@/models/Otp";
-import { errorResponse, successResponse } from "@/utils/response";
+import { errorResponse } from "@/utils/response";
 import User from "@/models/User";
 import { NextResponse } from "next/server";
 

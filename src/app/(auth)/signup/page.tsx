@@ -5,7 +5,7 @@ import Username from "@/containers/Signup/Username"
 import { useUserStore } from "@/store/useUserStore"
 import Link from "next/link"
 
-const page = () => {
+const Page = () => {
     const { currentPage } = useUserStore()
     return (
         <div className="h-full relative">
@@ -23,4 +23,4 @@ const page = () => {
     )
 }
 
-export default page
+export default Page
