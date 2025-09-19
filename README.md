@@ -11,8 +11,7 @@ Buy Me a Chiya is a modern web app inspired by the concept of "Buy Me a Coffee",
 - **Tailwind CSS** (for styling)
 - **Zustand** (state management)
 - **Axios** (API requests)
-- **Sonner** (toast notifications)
-- **MongoDB** (for database, if used)
+- **MongoDB** (for database)
 
 ---
 
